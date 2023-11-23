@@ -20,8 +20,10 @@
     <p id="result"></p>
 
     <script>
+        var sectionCount = 1; // ページロード時の初期値
+
         function updateSections() {
-            var sectionCount = document.getElementById("sectionCount").value;
+            sectionCount = document.getElementById("sectionCount").value;
             createSections(sectionCount);
         }
 
