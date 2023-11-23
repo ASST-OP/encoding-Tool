@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>文字列操作</title>
+</head>
+<body>
+
+    <!-- セクション1 -->
+    <section>
+        <label for="inputText1">文字列1:</label>
+        <input type="text" id="inputText1">
+        <select id="encodeOption1">
+            <option value="encode">エンコード</option>
+            <option value="noEncode">エンコードしない</option>
+        </select>
+        <button onclick="processText(1)">実行</button>
+        <p id="result1"></p>
+    </section>
+
+    <!-- セクション2 -->
+    <section>
+        <label for="inputText2">文字列2:</label>
+        <input type="text" id="inputText2">
+        <select id="encodeOption2">
+            <option value="encode">エンコード</option>
+            <option value="noEncode">エンコードしない</option>
+        </select>
+        <button onclick="processText(2)">実行</button>
+        <p id="result2"></p>
+    </section>
+
+    <!-- セクション3 -->
+    <section>
+        <label for="inputText3">文字列3:</label>
+        <input type="text" id="inputText3">
+        <select id="encodeOption3">
+            <option value="encode">エンコード</option>
+            <option value="noEncode">エンコードしない</option>
+        </select>
+        <button onclick="processText(3)">実行</button>
+        <p id="result3"></p>
+    </section>
+
+    <script>
+        function processText(sectionNumber) {
+            // ユーザーが指定した文字列を取得
+            var inputElement = document.getElementById("inputText" + sectionNumber);
+            var textToProcess = inputElement.value;
+
+            // エンコードのオプションを取得
+            var encodeOptionElement = document.getElementById("encodeOption" + sectionNumber);
+            var encodeOption = encodeOptionElement.value;
+
+            // エンコードの選択に応じて文字列を処理
+            if (encodeOption === "encode") {
+                textToProcess = encodeURIComponent(textToProcess);
+            }
+
+            // 結果を表示
+            var resultElement = document.getElementById("result" + sectionNumber);
+            resultElement.textContent = "結果: " + textToProcess;
+        }
+    </script>
+
+</body>
+</html>
