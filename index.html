@@ -69,8 +69,60 @@
     </script>
 
     <script>
-        // 他のスクリプトは変更せずに続けてください
-        // ...
+        function processText() {
+            var textToDisplay = "";
+
+            for (var i = 1; i <= sectionCount; i++) {
+                // ユーザーが指定した文字列と操作のオプションを取得
+                var text = getTextWithOperation("inputText" + i, "operationOption" + i);
+                textToDisplay += text;
+            }
+
+            // 文字列を処理して表示
+            var resultElement = document.getElementById("result");
+            resultElement.textContent = "結果: " + textToDisplay;
+        }
+
+        function copyResult() {
+            // 結果をコピー
+            var resultElement = document.getElementById("result");
+            var resultText = resultElement.textContent;
+
+            // コピー用のテキストエリアを作成して値をセット
+            var copyTextArea = document.createElement("textarea");
+            copyTextArea.value = resultText;
+
+            // テキストエリアをページに追加
+            document.body.appendChild(copyTextArea);
+
+            // テキストエリアの選択とコピー
+            copyTextArea.select();
+            document.execCommand("copy");
+
+            // テキストエリアを削除
+            document.body.removeChild(copyTextArea);
+
+            alert("コピーが成功しました: " + resultText);
+        }
+
+        function getTextWithOperation(textInputId, operationOptionId) {
+            // ユーザーが指定した文字列を取得
+            var inputElement = document.getElementById(textInputId);
+            var textToProcess = inputElement.value;
+
+            // 操作のオプションを取得
+            var operationOptionElement = document.getElementById(operationOptionId);
+            var operationOption = operationOptionElement.value;
+
+            // 操作の選択に応じて文字列を処理
+            if (operationOption === "encode") {
+                textToProcess = encodeURIComponent(textToProcess);
+            } else if (operationOption === "decode") {
+                textToProcess = decodeURIComponent(textToProcess);
+            }
+
+            return textToProcess;
+        }
     </script>
 
 </body>
