@@ -7,38 +7,52 @@
 </head>
 <body>
 
-    <!-- セクション1 -->
-    <section>
-        <label for="inputText1">文字列1:</label>
-        <input type="text" id="inputText1">
-        <select id="operationOption1">
-            <option value="encode">エンコード</option>
-            <option value="decode">デコード</option>
-            <option value="noOperation">何もしない</option>
-        </select>
-    </section>
+    <!-- ユーザーが指定した数のセクションを作成 -->
+    <script>
+        var sectionCount = prompt("テキストボックスとオプションの数を指定してください");
+        createSections(sectionCount);
 
-    <!-- セクション2 -->
-    <section>
-        <label for="inputText2">文字列2:</label>
-        <input type="text" id="inputText2">
-        <select id="operationOption2">
-            <option value="encode">エンコード</option>
-            <option value="decode">デコード</option>
-            <option value="noOperation">何もしない</option>
-        </select>
-    </section>
+        function createSections(count) {
+            var container = document.body;
 
-    <!-- セクション3 -->
-    <section>
-        <label for="inputText3">文字列3:</label>
-        <input type="text" id="inputText3">
-        <select id="operationOption3">
-            <option value="encode">エンコード</option>
-            <option value="decode">デコード</option>
-            <option value="noOperation">何もしない</option>
-        </select>
-    </section>
+            for (var i = 1; i <= count; i++) {
+                var section = document.createElement("section");
+
+                var label = document.createElement("label");
+                label.setAttribute("for", "inputText" + i);
+                label.textContent = "文字列" + i + ":";
+
+                var input = document.createElement("input");
+                input.setAttribute("type", "text");
+                input.setAttribute("id", "inputText" + i);
+
+                var select = document.createElement("select");
+                select.setAttribute("id", "operationOption" + i);
+
+                var encodeOption = document.createElement("option");
+                encodeOption.setAttribute("value", "encode");
+                encodeOption.textContent = "エンコード";
+
+                var decodeOption = document.createElement("option");
+                decodeOption.setAttribute("value", "decode");
+                decodeOption.textContent = "デコード";
+
+                var noOperationOption = document.createElement("option");
+                noOperationOption.setAttribute("value", "noOperation");
+                noOperationOption.textContent = "何もしない";
+
+                select.appendChild(encodeOption);
+                select.appendChild(decodeOption);
+                select.appendChild(noOperationOption);
+
+                section.appendChild(label);
+                section.appendChild(input);
+                section.appendChild(select);
+
+                container.appendChild(section);
+            }
+        }
+    </script>
 
     <button onclick="processText()">実行</button>
     <button onclick="copyResult()">コピー</button>
@@ -47,14 +61,17 @@
 
     <script>
         function processText() {
-            // ユーザーが指定した文字列と操作のオプションを取得
-            var text1 = getTextWithOperation("inputText1", "operationOption1");
-            var text2 = getTextWithOperation("inputText2", "operationOption2");
-            var text3 = getTextWithOperation("inputText3", "operationOption3");
+            var textToDisplay = "";
 
-            // 文字列を処理して足し合わせて表示
+            for (var i = 1; i <= sectionCount; i++) {
+                // ユーザーが指定した文字列と操作のオプションを取得
+                var text = getTextWithOperation("inputText" + i, "operationOption" + i);
+                textToDisplay += text;
+            }
+
+            // 文字列を処理して表示
             var resultElement = document.getElementById("result");
-            resultElement.textContent = "結果: " + (text1 + text2 + text3);
+            resultElement.textContent = "結果: " + textToDisplay;
         }
 
         function copyResult() {
