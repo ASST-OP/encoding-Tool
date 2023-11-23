@@ -11,9 +11,10 @@
     <section>
         <label for="inputText1">文字列1:</label>
         <input type="text" id="inputText1">
-        <select id="encodeOption1">
+        <select id="operationOption1">
             <option value="encode">エンコード</option>
-            <option value="noEncode">エンコードしない</option>
+            <option value="decode">デコード</option>
+            <option value="noOperation">何もしない</option>
         </select>
     </section>
 
@@ -21,9 +22,10 @@
     <section>
         <label for="inputText2">文字列2:</label>
         <input type="text" id="inputText2">
-        <select id="encodeOption2">
+        <select id="operationOption2">
             <option value="encode">エンコード</option>
-            <option value="noEncode">エンコードしない</option>
+            <option value="decode">デコード</option>
+            <option value="noOperation">何もしない</option>
         </select>
     </section>
 
@@ -31,9 +33,10 @@
     <section>
         <label for="inputText3">文字列3:</label>
         <input type="text" id="inputText3">
-        <select id="encodeOption3">
+        <select id="operationOption3">
             <option value="encode">エンコード</option>
-            <option value="noEncode">エンコードしない</option>
+            <option value="decode">デコード</option>
+            <option value="noOperation">何もしない</option>
         </select>
     </section>
 
@@ -44,12 +47,12 @@
 
     <script>
         function processText() {
-            // ユーザーが指定した文字列とエンコードのオプションを取得
-            var text1 = getTextWithEncoding("inputText1", "encodeOption1");
-            var text2 = getTextWithEncoding("inputText2", "encodeOption2");
-            var text3 = getTextWithEncoding("inputText3", "encodeOption3");
+            // ユーザーが指定した文字列と操作のオプションを取得
+            var text1 = getTextWithOperation("inputText1", "operationOption1");
+            var text2 = getTextWithOperation("inputText2", "operationOption2");
+            var text3 = getTextWithOperation("inputText3", "operationOption3");
 
-            // 文字列を足し合わせて表示
+            // 文字列を処理して足し合わせて表示
             var resultElement = document.getElementById("result");
             resultElement.textContent = "結果: " + (text1 + text2 + text3);
         }
@@ -76,18 +79,20 @@
             alert("コピーが成功しました: " + resultText);
         }
 
-        function getTextWithEncoding(textInputId, encodeOptionId) {
+        function getTextWithOperation(textInputId, operationOptionId) {
             // ユーザーが指定した文字列を取得
             var inputElement = document.getElementById(textInputId);
             var textToProcess = inputElement.value;
 
-            // エンコードのオプションを取得
-            var encodeOptionElement = document.getElementById(encodeOptionId);
-            var encodeOption = encodeOptionElement.value;
+            // 操作のオプションを取得
+            var operationOptionElement = document.getElementById(operationOptionId);
+            var operationOption = operationOptionElement.value;
 
-            // エンコードの選択に応じて文字列を処理
-            if (encodeOption === "encode") {
+            // 操作の選択に応じて文字列を処理
+            if (operationOption === "encode") {
                 textToProcess = encodeURIComponent(textToProcess);
+            } else if (operationOption === "decode") {
+                textToProcess = decodeURIComponent(textToProcess);
             }
 
             return textToProcess;
