@@ -17,7 +17,6 @@
     <button onclick="processText()">実行</button>
     <button onclick="copyResult()">コピー</button>
 
-    <p id="result"></p>
 
     <script>
         var sectionCount = 1; // ページロード時の初期値
@@ -82,7 +81,7 @@
 
             // 文字列を処理して表示
             var resultElement = document.getElementById("result");
-            resultElement.textContent = "結果: " + textToDisplay;
+            resultElement.textContent =textToDisplay;
         }
 
         function copyResult() {
@@ -104,7 +103,7 @@
             // テキストエリアを削除
             document.body.removeChild(copyTextArea);
 
-            alert("コピーが成功しました: " + resultText);
+            alert("コピーが成功しました: ");
         }
 
         function getTextWithOperation(textInputId, operationOptionId) {
