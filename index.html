@@ -14,9 +14,11 @@
 
     <div id="sectionsContainer"></div>
 
-    <button onclick="processText()">実行</button>
+    <!-- 実行ボタンを削除 -->
+
     <button onclick="copyResult()">コピー</button>
 
+    <p id="result"></p>
 
     <script>
         var sectionCount = 1; // ページロード時の初期値
@@ -70,7 +72,7 @@
     </script>
 
     <script>
-        function processText() {
+        function copyResult() {
             var textToDisplay = "";
 
             for (var i = 1; i <= sectionCount; i++) {
@@ -79,43 +81,31 @@
                 textToDisplay += text;
             }
 
-            // 文字列を処理して表示
+            // 結果を表示しないように変更
             var resultElement = document.getElementById("result");
-            resultElement.textContent =textToDisplay;
-        }
+            resultElement.textContent = "";  // 空の文字列を代入
 
-        function copyResult() {
             // 結果をコピー
-            var resultElement = document.getElementById("result");
-            var resultText = resultElement.textContent;
-
-            // コピー用のテキストエリアを作成して値をセット
             var copyTextArea = document.createElement("textarea");
-            copyTextArea.value = resultText;
+            copyTextArea.value = textToDisplay;
 
-            // テキストエリアをページに追加
             document.body.appendChild(copyTextArea);
 
-            // テキストエリアの選択とコピー
             copyTextArea.select();
             document.execCommand("copy");
 
-            // テキストエリアを削除
             document.body.removeChild(copyTextArea);
 
-            alert("コピーが成功しました: ");
+            alert("コピーが成功しました");
         }
 
         function getTextWithOperation(textInputId, operationOptionId) {
-            // ユーザーが指定した文字列を取得
             var inputElement = document.getElementById(textInputId);
             var textToProcess = inputElement.value;
 
-            // 操作のオプションを取得
             var operationOptionElement = document.getElementById(operationOptionId);
             var operationOption = operationOptionElement.value;
 
-            // 操作の選択に応じて文字列を処理
             if (operationOption === "encode") {
                 textToProcess = encodeURIComponent(textToProcess);
             } else if (operationOption === "decode") {
